@@ -22,12 +22,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-    android:name="SmartCoachPlusActivity" 
-    android:label="@string/app_name"
-    android:screenOrientation="portrait">
-</activity>
+        <activity
+            android:name=".SmartCoachPlusActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SpinnerExample"
+            android:label="@string/app_name" >
+        </activity>
+
+        <receiver android:name=".AlarmReciever" />
+
+        <activity
+            android:name=".QuestionDialogShow"
+            android:label="@string/title_activity_question_dialog_show" >
+        </activity>
     </application>
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+
 </manifest>

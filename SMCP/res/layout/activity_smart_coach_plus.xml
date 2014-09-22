@@ -19,5 +19,16 @@
         android:background="@drawable/buttonstyle"
         
         android:text="Overeating" />
+
+    <TextView
+        android:id="@+id/SetReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Set Reminder"
+        android:textColor="#FFFF32"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     
 </RelativeLayout>

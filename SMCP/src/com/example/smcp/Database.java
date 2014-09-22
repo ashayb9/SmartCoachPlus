@@ -1,7 +1,11 @@
 package com.example.smcp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,8 +27,8 @@ public class Database {
 	private static final String DATABASE_NAME = "SmartCoach";
 
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_TABLE = "Phase1";
-	private static final String DATABASE_TABLE1 = "Questions";
+	private static final String DATABASE_TABLE_OVEREATING = "Phase1";
+	private static final String DATABASE_TABLE_QUESTIONS = "Questions";
 
 	private static String DATABASE_CREATE = "create table Phase1 (_Id integer primary key autoincrement, "
 			+ "Date text not null,"
@@ -81,14 +85,14 @@ public class Database {
 		DBHelper.close();
 	}
 
-	public long insertRecordPhase1(InsertData data) {
+	public long insertRecordPhase1(OvereatingEntry data) {
 		ContentValues initialValues = new ContentValues();
-		Log.d(TAG, String.format("location %f, %f\n", data.getData().Latitude, data.getData().Longitude));
-		initialValues.put(KEY_DATE, data.getData().Date);
-		initialValues.put(KEY_LATITUDE, data.getData().Latitude);
-		initialValues.put(KEY_LONGITUDE, data.getData().Longitude);
-		initialValues.put(KEY_NOTES, data.getData().Note);
-		return DBHelper.getWritableDatabase().insert(DATABASE_TABLE, null, initialValues);
+		Log.d(TAG, String.format("location %f, %f\n", data.getLatitude(), data.getLongitude()));
+		initialValues.put(KEY_DATE, data.getDate());
+		initialValues.put(KEY_LATITUDE, data.getLatitude());
+		initialValues.put(KEY_LONGITUDE, data.getLongitude());
+		initialValues.put(KEY_NOTES, data.getNote());
+		return DBHelper.getWritableDatabase().insert(DATABASE_TABLE_OVEREATING, null, initialValues);
 	}
 
 	public long insertQuestion(String Sleep, String SleepHours, String Stress) {
@@ -96,12 +100,23 @@ public class Database {
 		initialValues.put(KEY_SLEEP, Sleep);
 		initialValues.put(KEY_SLEEPHOURS, SleepHours);
 		initialValues.put(KEY_STRESS, Stress);
-		return db.insert(DATABASE_TABLE1, null, initialValues);
+		return db.insert(DATABASE_TABLE_QUESTIONS, null, initialValues);
 	}
 	
 	public String getPath(){
 		Log.d(TAG, DBHelper.getWritableDatabase().getPath());
 		return DBHelper.getWritableDatabase().getPath();
 
+
 	}
+public List<OvereatingEntry> getAllDataFromTable (){
+	List<OvereatingEntry> overeatingList = new ArrayList<OvereatingEntry>();
+	OvereatingEntry insertdata = null;
+	String sql = "select * from " + DATABASE_TABLE_OVEREATING;
+	Cursor cursor = DBHelper.getReadableDatabase().rawQuery(sql,null);
+		
+	cursor.moveToNext();
+	return overeatingList;
 }
+}
+

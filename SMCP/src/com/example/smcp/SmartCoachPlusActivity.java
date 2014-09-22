@@ -7,9 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SmartCoachPlusActivity extends Activity {
@@ -34,8 +38,11 @@ public class SmartCoachPlusActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_smart_coach_plus);
+		TextView setreminder = (TextView) findViewById(R.id.SetReminder);
+		setreminder.setOnClickListener(reminder);
 		Overeating = (Button) findViewById(R.id.OvereatingBtn);
 		Overeating.setOnClickListener(myhandler);
+		
 		// GPS initialization
 		LocationManager mLocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		
@@ -50,10 +57,19 @@ public class SmartCoachPlusActivity extends Activity {
 		}
         LocationListener mLocListener = new MyLocationListener();
         mLocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocListener);
-
+        scheduleAlarm(null);
 	}
 
-	
+	View.OnClickListener reminder = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
+			Intent intent = new Intent(getApplicationContext(),SpinnerExample.class);
+			startActivity(intent);
+
+		}
+	};
 	
 		
 		  
@@ -66,7 +82,10 @@ public class SmartCoachPlusActivity extends Activity {
 						
 			Calendar c = Calendar.getInstance();
 			System.out.println("Current time => " + c.getTime());
-
+			int hr = c.getInstance().get(c.HOUR_OF_DAY);
+			
+            
+			System.out.println("Hour of the day ==" + hr);
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			formattedDate = df.format(c.getTime());
 
@@ -89,7 +108,7 @@ public class SmartCoachPlusActivity extends Activity {
 							Newnote = input.getText().toString();
 							dialog.dismiss();
 							if (Newnote != null) {
-								InsertData insertData = new InsertData(
+								OvereatingEntry insertData = new OvereatingEntry(
 										formattedDate, Lati, Longi, Newnote);
 								
 								db.open();
@@ -126,7 +145,11 @@ public class SmartCoachPlusActivity extends Activity {
 		}
 
 	};
-
+	
+	
+	
+	
+	
 	// GPS location
 	public class MyLocationListener implements LocationListener
 
@@ -183,6 +206,27 @@ public class SmartCoachPlusActivity extends Activity {
 		 inputStream.close();
 		 outputStream.close();
 		 }
-	
+	 public void scheduleAlarm(View V)
+	    {
+	                 
+		 Calendar c = Calendar.getInstance();
+			System.out.println("Current time => " + c.getTime());
+			int hr = c.getInstance().get(c.HOUR_OF_DAY);
+			
+		c.set(c.MINUTE, c.get(c.MINUTE)+1);
+			
+			Intent intentAlarm = new Intent(this, AlarmReciever.class);
+
+			// create the object
+			AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+			// set the alarm for particular time
+			alarmManager.set(AlarmManager.RTC_WAKEUP, 1, PendingIntent
+					.getBroadcast(this, 0, intentAlarm,
+							PendingIntent.FLAG_UPDATE_CURRENT));
+			Toast.makeText(this, "Alarm Scheduled for Tommrrow",
+					Toast.LENGTH_LONG).show();
+		
+	    }
 
 }
