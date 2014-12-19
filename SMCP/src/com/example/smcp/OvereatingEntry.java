@@ -7,17 +7,28 @@ public class OvereatingEntry extends Activity {
 	String date;
 	float latitude;
 	float longitude;
-	String note;	
+	String locationlabel;
+	String EatingAnswer;
+
 	
-	public OvereatingEntry(String date, float lat, float lon, String note){
+
+	String note;
+	
+	String OvereatingStress;
+	String HungerLvl;
+	
+
+
+	
+	public OvereatingEntry(String date, float lat, float lon,String locationlabel,String note,String EatingAns,String OStress,String Hungerlvl){
 		this.date = date;
 		this.latitude = lat;
 		this.longitude = lon;
-	
+		this.locationlabel = locationlabel;
 		this.note = note;
-	
-		
-
+	    this.OvereatingStress = OStress;
+	    this.HungerLvl = Hungerlvl; 
+	    this.EatingAnswer = EatingAns;
 	}
 	
 	@Override
@@ -32,7 +43,7 @@ public class OvereatingEntry extends Activity {
 	}
 
 	public void setDate(String date) {
-		date = date;
+		this.date = date;
 	}
 
 	public float getLatitude() {
@@ -40,7 +51,7 @@ public class OvereatingEntry extends Activity {
 	}
 
 	public void setLatitude(float latitude) {
-		latitude = latitude;
+		this.latitude = latitude;
 	}
 
 	public float getLongitude() {
@@ -48,19 +59,45 @@ public class OvereatingEntry extends Activity {
 	}
 
 	public void setLongitude(float longitude) {
-		longitude = longitude;
+		this.longitude = longitude;
+	}
+	public String getLocationlabel() {
+		return locationlabel;
 	}
 
+	public void setLocationlabel(String locationlabel) {
+		this.locationlabel = locationlabel;
+	}
 	public String getNote() {
 		return note;
 	}
 
 	public void setNote(String note) {
-		note = note;
+		this.note = note;
 	}
 	
 
+	public String getOvereatingStress() {
+		return OvereatingStress;
+	}
 
+	public void setOvereatingStress(String overeatingStress) {
+		OvereatingStress = overeatingStress;
+	}
 
+	public String getHungerLvl() {
+		return HungerLvl;
+	}
+
+	public void setHungerLvl(String hungerLvl) {
+		HungerLvl = hungerLvl;
+	}
+	public String getEatingAnswer() {
+		return EatingAnswer;
+	}
+
+	public void setEatingAnswer(String eatingAnswer) {
+		EatingAnswer = eatingAnswer;
+	}
 
 }

@@ -1,5 +1,8 @@
 package com.example.smcp;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,28 +20,53 @@ public class Database {
 	public static final String KEY_DATE = "Date";
 	public static final String KEY_LATITUDE = "Lat";
 	public static final String KEY_LONGITUDE = "Long";
-	public static final String KEY_NOTES = "Notes";
-	private static final String TAG = Database.class.getSimpleName();
+	public static final String KEY_CONDITIONS = "Conditions";
+	public static final String KEY_OVEREATINGSTRESS = "OvereatingStress";
+	public static final String KEY_LOCATIONLABEL = "LocationLbl";
+	public static final String KEY_HUNGERLVL = "HungerLvl";
+	public static final String KEY_EATING = "Eating";
+	static final String TAG = Database.class.getSimpleName();
 
 	private static final String KEY_SLEEP = "Sleep";
 	private static final String KEY_SLEEPHOURS = "SleepHours";
+	private static final String KEY_SLEEPTIME = "SleepTime";
 	private static final String KEY_STRESS = "Stress";
+	private static final String KEY_STRESSTIME = "StressTime";
+	private static final String KEY_WEIGHT = "Weight";
+	private static final String KEY_WEIGHTTIME = "WeightTime";
+	
+	
 
 	private static final String DATABASE_NAME = "SmartCoach";
 
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_TABLE_OVEREATING = "Phase1";
-	private static final String DATABASE_TABLE_QUESTIONS = "Questions";
+	private static final String DATABASE_TABLE_OVEREATING = "Overeating_Table";
+	private static final String DATABASE_TABLE_QUESTIONS = "Sleep_Quality_Table";
+	private static final String DATABASE_TABLE_STRESS = "Stresslvl";
+	private static final String DATABASE_TABLE_WEIGHT = "DailyWeight";
+	
 
-	private static String DATABASE_CREATE = "create table Phase1 (_Id integer primary key autoincrement, "
+	private static String DATABASE_CREATE = "create table Overeating_Table (_Id integer primary key autoincrement, "
 			+ "Date text not null,"
 			+ "Lat float text not null,"
-			+ "Long float text not null," + "Notes text not null);";
+			+ "Long float text not null,"
+			+ "LocationLbl text not null,"
+			+ "Eating text not null,"
+			+ "Conditions text not null," + "OvereatingStress text not null, " + "HungerLvl text not null);";
 
-	private static final String DATABASE_CREATECUS = "create table Questions (_Id integer primary key autoincrement, "
+	private static final String DATABASE_CREATECUS = "create table Sleep_Quality_Table (_Id integer primary key autoincrement, "
 			+ "Sleep text not null,"
 			+ "SleepHours text not null,"
-			+ "Stress text not null);";
+			+ "SleepTime text not null);";
+
+	private static final String DATABASE_CREATEUS = "create table Stresslvl (_Id integer primary key autoincrement,"
+			+ "Stress text not null," + "StressTime text not null);";
+
+
+	private static final String DATABASE_CREATEW = "create table DailyWeight(_Id integer primary key autoincrement,"
+			+ "Weight text not null," + "WeightTime text not null);";
+
+	
 
 	private final Context context;
 
@@ -57,9 +85,13 @@ public class Database {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
+			Log.d(TAG, "Creating Database");
 			try {
 				db.execSQL(DATABASE_CREATE);
 				db.execSQL(DATABASE_CREATECUS);
+				
+				db.execSQL(DATABASE_CREATEW);
+				db.execSQL(DATABASE_CREATEUS);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -76,6 +108,7 @@ public class Database {
 
 	// ---opens the database---
 	public Database open() throws SQLException {
+		Log.d(TAG, "Database/open");
 		db = DBHelper.getWritableDatabase();
 		return this;
 	}
@@ -87,36 +120,78 @@ public class Database {
 
 	public long insertRecordPhase1(OvereatingEntry data) {
 		ContentValues initialValues = new ContentValues();
-		Log.d(TAG, String.format("location %f, %f\n", data.getLatitude(), data.getLongitude()));
+		Log.d(TAG,
+				String.format("location %f, %f\n", data.getLatitude(),
+						data.getLongitude()));
 		initialValues.put(KEY_DATE, data.getDate());
 		initialValues.put(KEY_LATITUDE, data.getLatitude());
 		initialValues.put(KEY_LONGITUDE, data.getLongitude());
-		initialValues.put(KEY_NOTES, data.getNote());
-		return DBHelper.getWritableDatabase().insert(DATABASE_TABLE_OVEREATING, null, initialValues);
+		initialValues.put(KEY_LOCATIONLABEL, data.getLocationlabel());
+		initialValues.put(KEY_CONDITIONS, data.getNote());
+		initialValues.put(KEY_EATING, data.getEatingAnswer());
+		initialValues.put(KEY_OVEREATINGSTRESS, data.getOvereatingStress());
+		initialValues.put(KEY_HUNGERLVL, data.getHungerLvl());
+		return db.insert(DATABASE_TABLE_OVEREATING, null, initialValues);
 	}
 
-	public long insertQuestion(String Sleep, String SleepHours, String Stress) {
+	public long insertQuestion(QuestionsEntry data) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_SLEEP, Sleep);
-		initialValues.put(KEY_SLEEPHOURS, SleepHours);
-		initialValues.put(KEY_STRESS, Stress);
+		initialValues.put(KEY_SLEEP, data.getSleep());
+		initialValues.put(KEY_SLEEPHOURS, data.getSleephours());
+		initialValues.put(KEY_SLEEPTIME, data.getSleeptimeentry());
+
 		return db.insert(DATABASE_TABLE_QUESTIONS, null, initialValues);
 	}
+
+	public long insertStresslvl(StressEntry data) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(KEY_STRESS, data.getStress());
+		initialValues.put(KEY_STRESSTIME, data.getStresstime());
+		return db.insert(DATABASE_TABLE_STRESS, null, initialValues);
+	}
+
+	public long insertDailyWeight(WeightEntry data) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(KEY_WEIGHT, data.getWeight());
+		initialValues.put(KEY_WEIGHTTIME, data.getWeightentrytime());
+		return db.insert(DATABASE_TABLE_WEIGHT, null, initialValues);
+	}
+
 	
-	public String getPath(){
+
+	public String getPath() {
 		Log.d(TAG, DBHelper.getWritableDatabase().getPath());
 		return DBHelper.getWritableDatabase().getPath();
 
-
 	}
-public List<OvereatingEntry> getAllDataFromTable (){
-	List<OvereatingEntry> overeatingList = new ArrayList<OvereatingEntry>();
-	OvereatingEntry insertdata = null;
-	String sql = "select * from " + DATABASE_TABLE_OVEREATING;
-	Cursor cursor = DBHelper.getReadableDatabase().rawQuery(sql,null);
-		
-	cursor.moveToNext();
-	return overeatingList;
-}
-}
 
+	public List<OvereatingEntry> getAllDataFromTable() {
+		List<OvereatingEntry> overeatingList = new ArrayList<OvereatingEntry>();
+		OvereatingEntry insertdata = null;
+		String sql = "select * from " + DATABASE_TABLE_OVEREATING;
+		Cursor cursor = DBHelper.getReadableDatabase().rawQuery(sql, null);
+
+		cursor.moveToNext();
+		return overeatingList;
+	}
+
+	public void copyToStorage(Context ctx) {
+		File dbFile = new File(DBHelper.getWritableDatabase().getPath());
+		File outFile = new File(ctx.getExternalFilesDir(null),
+				"smcpdb.db");
+		Log.d(DatabaseHelper.class.getSimpleName(), outFile.getAbsolutePath());
+		try {
+			FileInputStream dbSource = new FileInputStream(dbFile);
+			FileOutputStream dbOut = new FileOutputStream(outFile);
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while ((len = dbSource.read(buffer)) > 0) {
+				dbOut.write(buffer, 0, len);
+			}
+			dbSource.close();
+			dbOut.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

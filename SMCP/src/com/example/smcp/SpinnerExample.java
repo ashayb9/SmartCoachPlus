@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -22,14 +24,15 @@ public class SpinnerExample extends Activity{
         setContentView(R.layout.reminder);
  
         spinner1 = (Spinner) findViewById(R.id.spinner1);
-        List<String> list = new ArrayList<String>();
-        list.add("09.00 AM");
-        list.add("06.00 AM");
-        list.add("07.00 AM");
-        list.add("08.00 AM");
-        list.add("10.00 AM");
-        list.add("11.00 AM");
-        list.add("12.00 PM");
+        List<Time> list = new ArrayList<Time>();
+       // for(int i = 6; i < 11; i++){
+        	list.add(new Time(6, 0));
+        	list.add(new Time(7,0));
+        	list.add(new Time(8,0));
+        	list.add(new Time(9,0));
+        	list.add(new Time(10,0));
+        	list.add(new Time(11,0));
+        
       
        
        
@@ -37,13 +40,17 @@ public class SpinnerExample extends Activity{
         
         
         
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
+        ArrayAdapter<Time> dataAdapter = new ArrayAdapter<Time>
                      (this, android.R.layout.simple_spinner_item,list);
                       
         dataAdapter.setDropDownViewResource
                      (android.R.layout.simple_spinner_dropdown_item);
                       
         spinner1.setAdapter(dataAdapter);
+        
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int selected = prefs.getInt("sleep_question_time", 0);
+        spinner1.setSelection(selected);
          
         // Spinner item selection Listener 
         addListenerOnSpinnerItemSelection();
@@ -74,7 +81,7 @@ public class SpinnerExample extends Activity{
             public void onClick(View v) {
  
                 Toast.makeText(SpinnerExample.this,
-                        "Click above to change Reminder time : " +
+                        "Click on the time above to change reminder for daily sleep quality entry : " +
                         "\n" + String.valueOf(spinner1.getSelectedItem()) ,
                         Toast.LENGTH_LONG).show();
             }

@@ -22,6 +22,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:paddingTop="20px"
-        android:text="Reset" />
+        android:text="Change Reminder" />
 
 </RelativeLayout>
