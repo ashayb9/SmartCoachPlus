@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract.Data;
 import android.util.Log;
 
 public class Database {
@@ -25,6 +26,8 @@ public class Database {
 	public static final String KEY_LOCATIONLABEL = "LocationLbl";
 	public static final String KEY_HUNGERLVL = "HungerLvl";
 	public static final String KEY_EATING = "Eating";
+	public static final String KEY_HUNGERDIALOGLVL = "HungerLvlDialog";
+	public static final String KEY_HUNGERDATETIME = "HungerDateTime";
 	static final String TAG = Database.class.getSimpleName();
 
 	private static final String KEY_SLEEP = "Sleep";
@@ -44,6 +47,7 @@ public class Database {
 	private static final String DATABASE_TABLE_QUESTIONS = "Sleep_Quality_Table";
 	private static final String DATABASE_TABLE_STRESS = "Stresslvl";
 	private static final String DATABASE_TABLE_WEIGHT = "DailyWeight";
+	private static final String DATABASE_TABLE_HUNGERLVL = "Hunger_Lvl_Table";
 	
 
 	private static String DATABASE_CREATE = "create table Overeating_Table (_Id integer primary key autoincrement, "
@@ -65,7 +69,9 @@ public class Database {
 
 	private static final String DATABASE_CREATEW = "create table DailyWeight(_Id integer primary key autoincrement,"
 			+ "Weight text not null," + "WeightTime text not null);";
-
+	
+	private static final String DATABASE_CREATEHUNGER = "create table Hunger_Lvl_Table(_Id interger primary key autoincrement, " + 
+			"HungerLvlDialog integer not null, " + "HungerDateTime text not null);";
 	
 
 	private final Context context;
@@ -89,7 +95,7 @@ public class Database {
 			try {
 				db.execSQL(DATABASE_CREATE);
 				db.execSQL(DATABASE_CREATECUS);
-				
+				db.execSQL(DATABASE_CREATEHUNGER);
 				db.execSQL(DATABASE_CREATEW);
 				db.execSQL(DATABASE_CREATEUS);
 			} catch (SQLException e) {
@@ -157,7 +163,12 @@ public class Database {
 		return db.insert(DATABASE_TABLE_WEIGHT, null, initialValues);
 	}
 
-	
+	public long insertHungerLvl(HungerEntry data){
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(KEY_HUNGERDIALOGLVL, data.getLevel());
+		initialValues.put(KEY_STRESSTIME, data.getDate());
+		return db.insert(DATABASE_TABLE_HUNGERLVL, null, initialValues);
+	}
 
 	public String getPath() {
 		Log.d(TAG, DBHelper.getWritableDatabase().getPath());

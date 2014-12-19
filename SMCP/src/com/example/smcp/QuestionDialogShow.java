@@ -37,6 +37,7 @@ public class QuestionDialogShow extends ActionBarActivity {
 	String lastquestionNoteAnswer;
 	String lastquestionStressAnswer;
 	String TAG;
+	String hungerlvl;
 	int maxLength = 2;
 	int question;
 	Database db1 = new Database(this);
@@ -102,7 +103,7 @@ public class QuestionDialogShow extends ActionBarActivity {
 						db1.open();
 						db1.insertStresslvl(stresslvl);
 						db1.close();
-						finish();
+						showHungerDialog();
 					}
 				});
 		final AlertDialog dialog = nightalertdialog.create();
@@ -444,6 +445,75 @@ public class QuestionDialogShow extends ActionBarActivity {
 		 LastQuestions.create().show();
 	}
 	
+public void showHungerDialog(){
+	AlertDialog.Builder hungeralertdialog = new AlertDialog.Builder(this);
+	hungeralertdialog.setCancelable(false);
+	hungeralertdialog.setTitle("Hello");
+	LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+	View view = inflater.inflate(R.layout.hungerlvl_layout, null);
+	final EditText HungerAnswer = (EditText)view.findViewById(R.id.hungerlvl_editText1);
+	
+	hungeralertdialog.setView(view);
+	hungeralertdialog.setNeutralButton(android.R.string.ok,
+				new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						// TODO Auto-generated method 
+						hungerlvl = HungerAnswer.getText().toString();
+						Calendar c = Calendar.getInstance();
+						System.out.println("Current time => " + c.getTime());
+						int hr = c.getInstance().get(c.HOUR_OF_DAY);
+						
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						formattedDate = df.format(c.getTime());
+						
+						HungerEntry insertData = new HungerEntry(formattedDate, Integer.parseInt(hungerlvl));
+						
+						db1.open();
+						db1.insertHungerLvl(insertData);
+						db1.close();
+						finish();
+						
+					}});
+	
+	final AlertDialog hungerDialog = hungeralertdialog.create();
+	HungerAnswer.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				hungerDialog.getButton(Dialog.BUTTON_NEUTRAL).setEnabled(s.toString().length() > 0);
+			try{	
+					if(Integer.parseInt(s.toString()) > 10){
+			
+					HungerAnswer.setText("10");
+				
+				}else if(Integer.parseInt(s.toString()) == 0){
+					HungerAnswer.setText("1");
+				}
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}	
+			}
+		});
+	
+	hungerDialog.show();
+
+	hungerDialog.getButton(Dialog.BUTTON_NEUTRAL).setEnabled(false);
+}	
 	public static boolean overeatingClickedToday(Context c) {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(c);

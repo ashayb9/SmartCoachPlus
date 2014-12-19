@@ -1086,8 +1086,7 @@ containing a value of this type.
     public static final class id {
         public static final int OvereatingBtn=0x7f05003c;
         public static final int Overeating_conditions_Answer=0x7f05004a;
-        public static final int SetReminder=0x7f05003d;
-        public static final int Sleep_Answer_editText1=0x7f05003f;
+        public static final int Sleep_Answer_editText1=0x7f05003e;
         public static final int action_bar=0x7f05001c;
         public static final int action_bar_activity_content=0x7f050015;
         public static final int action_bar_container=0x7f05001b;
@@ -1120,11 +1119,12 @@ containing a value of this type.
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int hunger_edit_Text1=0x7f050050;
+        public static final int hungerlvl_editText1=0x7f050040;
         public static final int icon=0x7f05002a;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
-        public static final int last_edittxt_time=0x7f050042;
-        public static final int last_location_edittxt=0x7f050040;
+        public static final int last_edittxt_time=0x7f050043;
+        public static final int last_location_edittxt=0x7f050041;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
         public static final int middle=0x7f050012;
@@ -1135,7 +1135,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
-        public static final int scrollView1=0x7f050041;
+        public static final int scrollView1=0x7f050042;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;
         public static final int search_button=0x7f050033;
@@ -1157,8 +1157,8 @@ containing a value of this type.
         public static final int stress_edit_text=0x7f05004f;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
-        public static final int textView1=0x7f05003e;
-        public static final int textView2=0x7f050043;
+        public static final int textView1=0x7f05003d;
+        public static final int textView2=0x7f05003f;
         public static final int textView3=0x7f050045;
         public static final int textView4=0x7f050047;
         public static final int title=0x7f05002b;
@@ -1221,16 +1221,17 @@ containing a value of this type.
         public static final int activity_question_dialog_show=0x7f030018;
         public static final int activity_smart_coach_plus=0x7f030019;
         public static final int first_sleep_question_layout=0x7f03001a;
-        public static final int insertdata=0x7f03001b;
-        public static final int last_reminder_dialog=0x7f03001c;
-        public static final int overeating_layout=0x7f03001d;
-        public static final int reminder=0x7f03001e;
-        public static final int second_sleep_question=0x7f03001f;
-        public static final int splash=0x7f030020;
-        public static final int stress_and_hunger=0x7f030021;
-        public static final int stress_question_layout=0x7f030022;
-        public static final int support_simple_spinner_dropdown_item=0x7f030023;
-        public static final int weight_question_layout=0x7f030024;
+        public static final int hungerlvl_layout=0x7f03001b;
+        public static final int insertdata=0x7f03001c;
+        public static final int last_reminder_dialog=0x7f03001d;
+        public static final int overeating_layout=0x7f03001e;
+        public static final int reminder=0x7f03001f;
+        public static final int second_sleep_question=0x7f030020;
+        public static final int splash=0x7f030021;
+        public static final int stress_and_hunger=0x7f030022;
+        public static final int stress_question_layout=0x7f030023;
+        public static final int support_simple_spinner_dropdown_item=0x7f030024;
+        public static final int weight_question_layout=0x7f030025;
     }
     public static final class menu {
         public static final int question_dialog_show=0x7f0c0000;

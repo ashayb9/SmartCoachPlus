@@ -54,8 +54,8 @@ public class SmartCoachPlusActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_smart_coach_plus);
-		TextView setreminder = (TextView) findViewById(R.id.SetReminder);
-		setreminder.setOnClickListener(reminder);
+//		TextView setreminder = (TextView) findViewById(R.id.SetReminder);
+//		setreminder.setOnClickListener(reminder);
 		Overeating = (Button) findViewById(R.id.OvereatingBtn);
 		Overeating.setOnClickListener(myhandler);
 
