@@ -17,7 +17,7 @@ public class AlarmReciever extends BroadcastReceiver {
 	
 	private static final String TAG = AlarmReciever.class.getSimpleName();
 	public static final int SLEEP_QUESTION = 0;
-	public static final int STRESS_QUESTION = 1;
+	public static final int STRESS_QUESTION = 1; 
 	
 	public static final int WEIGHT_QUESTION = 2;
 	public static final int LAST_QUESTION= 3;
