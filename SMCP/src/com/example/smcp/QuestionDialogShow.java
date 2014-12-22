@@ -34,8 +34,10 @@ public class QuestionDialogShow extends ActionBarActivity {
 	String lastquestionLocationAnswer;
 	String seconddialogshow;
 	String formattedDate;
-	String lastquestionNoteAnswer;
+	String lastquestionConditionsAnswer;
 	String lastquestionStressAnswer;
+	String lastquestionEatingAnswer;
+	String lastquestionHungerlvlAnswer;
 	String TAG;
 	String hungerlvl;
 	int maxLength = 2;
@@ -132,8 +134,6 @@ public class QuestionDialogShow extends ActionBarActivity {
 			
 					stressAnswer.setText("10");
 				
-				}else if(Integer.parseInt(s.toString()) == 0){
-					stressAnswer.setText("1");
 				}
 			}catch(Exception ex){
 				ex.printStackTrace();
@@ -418,10 +418,14 @@ public class QuestionDialogShow extends ActionBarActivity {
 		 EditText txtfieldLocation = (EditText)view.findViewById(R.id.editText_location);
 		 EditText txtfieldNote = (EditText)view.findViewById(R.id.edit_txt_note);
 		 EditText txtfieldStress = (EditText)view.findViewById(R.id.editText_stressLvl);
+		 EditText txtfieldEating = (EditText)view.findViewById(R.id.edit_txt_Eating);
+		 EditText txrfieldHungerLvl = (EditText)view.findViewById(R.id.editText_HungerLvl);
 		 lastquestionTimeAnswer = txtfieldTime.getText().toString();
 		 lastquestionLocationAnswer = txtfieldLocation.getText().toString();
-		 lastquestionNoteAnswer = txtfieldNote.getText().toString();
+		 lastquestionConditionsAnswer = txtfieldNote.getText().toString();
 		 lastquestionStressAnswer = txtfieldStress.getText().toString();
+		 lastquestionEatingAnswer = txtfieldEating.getText().toString();
+		 lastquestionHungerlvlAnswer = txrfieldHungerLvl.getText().toString();
 		 LastQuestions.setView(view);
 		
 		 LastQuestions.setNeutralButton(android.R.string.ok,
@@ -432,11 +436,11 @@ public class QuestionDialogShow extends ActionBarActivity {
 					@Override
 					public void onClick(final DialogInterface dialog,
 							int which) {
-//						OvereatingEntry insertData = new OvereatingEntry(lastquestionTimeAnswer,00,00,lastquestionLocationAnswer,lastquestionNoteAnswer,lastquestionStressAnswer );
-//						db1.open();
-//						db1.insertRecordPhase1(insertData);
-//						db1.close();
-//						dialog.dismiss();
+						OvereatingEntry insertData = new OvereatingEntry(lastquestionTimeAnswer,00,00,lastquestionLocationAnswer,lastquestionConditionsAnswer,lastquestionEatingAnswer,lastquestionStressAnswer,lastquestionHungerlvlAnswer );
+						db1.open();
+						db1.insertRecordPhase1(insertData);
+						db1.close();
+						dialog.dismiss();
 						// TODO Auto-generated method stub
 						finish();
 					}
@@ -501,8 +505,6 @@ public void showHungerDialog(){
 			
 					HungerAnswer.setText("10");
 				
-				}else if(Integer.parseInt(s.toString()) == 0){
-					HungerAnswer.setText("1");
 				}
 			}catch(Exception ex){
 				ex.printStackTrace();
