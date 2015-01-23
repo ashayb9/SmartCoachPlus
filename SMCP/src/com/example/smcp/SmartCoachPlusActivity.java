@@ -132,15 +132,15 @@ public class SmartCoachPlusActivity extends Activity {
 
 	View.OnClickListener myhandler = new View.OnClickListener() {
 		public void onClick(View v) 
-		{
-
-//			if(1 != 2){
-//				Intent intent = new Intent(getApplicationContext(),QuestionDialogShow.class);
-//				intent.putExtra("question", AlarmReciever.WEIGHT_QUESTION);
-//				startActivity(intent);
-//				return;
-//			
-//		}
+	{
+//
+			if(1 != 2){
+				Intent intent = new Intent(getApplicationContext(),QuestionDialogShow.class);
+				intent.putExtra("question", AlarmReciever.WEIGHT_QUESTION);
+				startActivity(intent);
+				return;
+			
+		}
 			
 			SharedPreferences prefs = PreferenceManager
 					.getDefaultSharedPreferences(getApplicationContext());
@@ -159,7 +159,7 @@ public class SmartCoachPlusActivity extends Activity {
 					SmartCoachPlusActivity.this);
 			final AlertDialog overeatingdialog;
 			alertdialogbuilder.setTitle("Hi There!");
-			alertdialogbuilder.setCancelable(false);
+		//	alertdialogbuilder.setCancelable(false);
 			// Setting Dialog Message
 			LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
 			View view = inflater.inflate(R.layout.overeating_layout, null);
@@ -239,10 +239,10 @@ public class SmartCoachPlusActivity extends Activity {
 										if(Integer.parseInt(s.toString()) > 10){
 								
 										stressAnswer.setText("10");
-									
-									}else if(Integer.parseInt(s.toString()) == 0){
-										stressAnswer.setText("1");
-									}
+										}
+//									else if(Integer.parseInt(s.toString()) == 0){
+//										stressAnswer.setText("1");
+//									}
 								}catch(Exception ex){
 									ex.printStackTrace();
 								}	

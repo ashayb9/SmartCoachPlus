@@ -70,7 +70,7 @@ public class Database {
 	private static final String DATABASE_CREATEW = "create table DailyWeight(_Id integer primary key autoincrement,"
 			+ "Weight text not null," + "WeightTime text not null);";
 	
-	private static final String DATABASE_CREATEHUNGER = "create table Hunger_Lvl_Table(_Id interger primary key autoincrement, " + 
+	private static final String DATABASE_CREATEHUNGER = "create table Hunger_Lvl_Table(_Id integer primary key autoincrement, " + 
 			"HungerLvlDialog integer not null, " + "HungerDateTime text not null);";
 	
 
@@ -166,7 +166,7 @@ public class Database {
 	public long insertHungerLvl(HungerEntry data){
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_HUNGERDIALOGLVL, data.getLevel());
-		initialValues.put(KEY_STRESSTIME, data.getDate());
+		initialValues.put(KEY_HUNGERDATETIME, data.getDate());
 		return db.insert(DATABASE_TABLE_HUNGERLVL, null, initialValues);
 	}
 

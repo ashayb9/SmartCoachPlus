@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -155,9 +156,9 @@ public class QuestionDialogShow extends ActionBarActivity {
 
 		// set dialog message
 		sleepQualityDialogBuilder
-				.setMessage("How rested do you feel?");
+				.setMessage("How well did you sleep last night? ");
 		TextView Scale = new TextView(this);
-		Scale.setText("1 = Not at all, 5 = Very much");
+		Scale.setText("1 = very bad; 5 = excellent");
 		final EditText input1 = new EditText(this);
 	
 		input1.setInputType(InputType.TYPE_CLASS_NUMBER
@@ -209,7 +210,7 @@ public class QuestionDialogShow extends ActionBarActivity {
 		
 		// set dialog message
 		alertDialogBuilder
-				.setMessage("How many Hours did you sleep last night?");
+				.setMessage("How many hours did you sleep last night?");
 		final EditText input = new EditText(this);
 		    
 		
@@ -319,7 +320,7 @@ public class QuestionDialogShow extends ActionBarActivity {
 						LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
 						View view = inflater.inflate(R.layout.weight_question_layout, null);
 						final EditText weight = (EditText)view.findViewById(R.id.weight_edit_Text1);
-						
+						weight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
 						enterweight.setView(view);
 						enterweight.setNeutralButton(android.R.string.yes,
 								new DialogInterface.OnClickListener() {

@@ -8,7 +8,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is your Stress Level On a Scale of 0 to 10?"
+        android:text="What is your stress level on a scale of 0 to 10?"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000000" />
 
