@@ -134,13 +134,13 @@ public class SmartCoachPlusActivity extends Activity {
 		public void onClick(View v) 
 	{
 //
-			if(1 != 2){
-				Intent intent = new Intent(getApplicationContext(),QuestionDialogShow.class);
-				intent.putExtra("question", AlarmReciever.WEIGHT_QUESTION);
-				startActivity(intent);
-				return;
-			
-		}
+//			if(1 != 2){
+//				Intent intent = new Intent(getApplicationContext(),QuestionDialogShow.class);
+//				intent.putExtra("question", AlarmReciever.WEIGHT_QUESTION);
+//				startActivity(intent);
+//				return;
+//			
+//		}
 			
 			SharedPreferences prefs = PreferenceManager
 					.getDefaultSharedPreferences(getApplicationContext());
